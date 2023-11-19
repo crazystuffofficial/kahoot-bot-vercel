@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1em;
+        }
+
+        main {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        #percent {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        #status {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+
+        .error {
+            color: red;
+        }
+
+        .success {
+            color: green;
+        }
+    </style>
+    <script>
+        setInterval(async function(){
+let x = await fetch("percent.txt");
+let x2 = await fetch("status.txt");
+let y = await x.text();
+let y2 = await x2.text();
+document.querySelector("#percent").innerHTML = y + "% done botting...";
+if(y2.replace("error", "").startsWith(",")){
+    document.querySelector("#status").innerHTML = '<p class="error">' + y2.replace("error, ", "") + '</p>';
+} else{
+    document.querySelector("#status").innerHTML = '<p class="success">' + y2.replace("success, ", "") + '</p>';
+}
+if(y == "100"){
+    alert("Done botting");
+    var redirectUrl = new URL(location.origin);
+    redirectUrl.port = location.port;
+    location = redirectUrl;
+}
+}, 1000);
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Bot Progress</h1>
+    </header>
+    <main>
+        <p id="percent">0% done botting...</p>
+        <div id="status"></div>
+    </main>
+</body>
+</html>
