@@ -143,9 +143,4 @@ app.get("/lol/:id1/rickroll.html", (req, res) => {
   ]);
   res.sendFile(path.join(__dirname, "/backend/rickrolled.html"));
 });
-app.all("/*", (req, res) => {
-  res.status(404);
-  res.set("Content-Type", "text/plain");
-  res.send("404 Not Found");
-});
 listenApp(app, [8080, 8081, 8082, 8083, 8084, 8000, 3000, 9000, 7000]);
